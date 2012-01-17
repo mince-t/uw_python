@@ -40,8 +40,8 @@ def send_data(host,port,data_to_send):
 
     
 host = ''
-port = 50003 # different port than other samples, all can run on same server
-send_port=50004
+port = 50006 # different port than other samples, all can run on same server
+send_port=50007
 if len(sys.argv) > 1:
     port = int(sys.argv[1])
 

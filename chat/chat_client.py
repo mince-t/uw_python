@@ -23,15 +23,15 @@ def send_data(host,port,data_to_send):
     return data
 
 
-host = 'localhost' 
-port = 50003
-listen_port=50004
+host = 'block335046-zme.blueboxgrid.com' 
+port = 50006
+listen_port=50007
 size = 1024 
 backlog = 5
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-server.bind((host,listen_port))
+server.bind(('localhost',listen_port))
 print
 print
 print '   chat CLIENT'
