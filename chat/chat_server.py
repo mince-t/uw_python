@@ -1,12 +1,19 @@
 """
-Based on Daniel Zappala's http://ilab.cs.byu.edu/python/code/echoserver-select.py
-Add print statements to show what's going on.
-Use SO_REUSEADDR to avoid 'Address already in use' errors
-Add timeout
-make style similar to our recho_clien
+Assigment 2
 
-An echo server that uses select to handle multiple clients at a time.
-Entering any line of input at the terminal will exit the server.
+In a new chat subdirectory, write a chat server based on
+echo_server_select.  When any client sends a message, that message is
+echoed to all clients, prefixed by the identification of the client
+that sent the message (as well as the server that sent the message).
+
+Test your chat server with two or more recho clients on localhost.
+Will these servers work as intended with the recho client?  Why not?
+If not, write a chat client, test your chat server with two or more
+chat clients on local host, then run them on your VM.
+
+Jon: This my server.  It only works with one client per ip.
+Should I work on extending this to ip/port?
+
 """
 
 import select
@@ -19,70 +26,61 @@ def send_data(host,port,data_to_send):
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
     fail_count=0
     data=""
-    while fail_count<10:
-        try:
-            s.connect((host,port))
-            s.send(data_to_send) 
-            data = s.recv(size)
-            
-            return data
-            s.close()
-            
-        except:
-            fail_count+=1
-            print"          Fail %i" % fail_count
-            time.sleep(1)
-            
-        
-    print "send failed"
     
-
-
+    try:
+        s.connect((host,port))
+        s.send(data_to_send) 
+        data = s.recv(size)
+        s.close()
+        return "200"
+    except:
+        
+        return "404"
     
 host = ''
-port = 50006 # different port than other samples, all can run on same server
-send_port=50007
+listen_port = 50003
+
+#Get my fqdn
+my_name=socket.getfqdn(socket.gethostname())
+
+#Port used to spread messages to clients
+send_port=50004
 if len(sys.argv) > 1:
-    port = int(sys.argv[1])
+    listen_port = int(sys.argv[1])
 
 backlog = 5
 size = 1024
 
+#tool up to listen for inbound chat messages
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Release listener socket immediately when program exits, 
-# avoid socket.error: [Errno 48] Address already in use
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind((host,listen_port))
 
-server.bind((host,port))
-
-#print 'echo_server listening on port %s, to exit type return ' % port
-
-
-print
-print
+#let the user know what's going on
+print ''
+print ''
 print '   chat SERVER'
-print '   LISTENING on port %s' % port 
+print '   running on %s' % my_name
+print '   LISTENING on port %s' % listen_port 
 print '   SENDING on port   %s' % send_port
 print '______________________________________________________'
-print
-print
+print''
+print''
 
+#start listening
 server.listen(backlog)
 
-timeout = 10 # seconds
+timeout = 10 
 input = [server,sys.stdin]
 running = True
+
+#our list of connected clients
 clients=[]
 
 while running:
     
     inputready,outputready,exceptready = select.select(input,[],[],timeout)
     
-    # timeout
-    
-
-
     for s in inputready:
 
         if s == server:
@@ -100,33 +98,35 @@ while running:
             
             input.append(client)
 
-           
-            
-
         elif s == sys.stdin:
             # handle standard input
             junk = sys.stdin.readline()
             running = False
             print 'Input %s from stdin, exiting.' % junk.strip('\n')
 
-        elif s: # client socket
-
+        elif s: # A client sent something
 
             data = s.recv(size)
             
             if data:
                 print '%s: sent <%s>' % (s.getpeername()[0], data.strip('\n'))
                 s.send('200')
+
+                #Spread the message to connected clients
                 print "Messaging Clients:"
                 for client in clients:
-                    echo_client=s.getpeername()[0]+ ' said:'
-                    print "     Messaging %s on %i ..." % (client ,send_port),
-                    if s.getpeername()[0]==client:
-                        echo_client="YOU said:"
-                    if send_data(client,send_port,echo_client + data)=="200":
-                        print "Success!!"
+                    echo_client=my_name + ":" + s.getpeername()[0]+ ':'
+
+                    #Skip the seneder
+                    if s.getpeername()[0]!=client:
+                        print "     Messaging %s on %i ..." % (client ,send_port),
+                        #Try to send to the current client
+                        if send_data(client,send_port,echo_client + data)=="200":
+                            print "Success!!"
+                        else:
+                            print " FAILED."
                     else:
-                        print "FAILED"
+                        print "     Skipping sender %s on %i." % (client ,send_port)
 
                 print
             else:

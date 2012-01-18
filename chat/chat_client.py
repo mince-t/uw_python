@@ -23,15 +23,15 @@ def send_data(host,port,data_to_send):
     return data
 
 
-host = 'block335046-zme.blueboxgrid.com' 
-port = 50006
-listen_port=50007
+host = '192.168.100.79'#'block335046-zme.blueboxgrid.com' 
+port = 50003
+listen_port=50004
 size = 1024 
 backlog = 5
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-server.bind(('localhost',listen_port))
+server.bind(('',listen_port))
 print
 print
 print '   chat CLIENT'
@@ -107,7 +107,7 @@ while input_string!='\n':
                 print  data.strip('\n')
                 
                 print
-                print 'Enter the text to send(just hit enter to stop):'
+                
                 
                 s.send('200')
             else:
