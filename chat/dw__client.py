@@ -71,6 +71,11 @@ while input_string!='\n':
 
 
     response=''
+    #if we have input from the keyboard
+    #if input_string!='':
+       #Send the input to the server
+       #response=send_data(host,port,input_string.strip('\n'))
+    
     input_string=''
     
     #Wait for input/messages from the server

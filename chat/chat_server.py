@@ -11,8 +11,6 @@ Will these servers work as intended with the recho client?  Why not?
 If not, write a chat client, test your chat server with two or more
 chat clients on local host, then run them on your VM.
 
-Jon: This my server.  It only works with one client per ip.
-Should I work on extending this to ip/port?
 
 """
 
@@ -22,20 +20,6 @@ import sys
 import time
 import datetime
 
-def send_data(host,port,data_to_send):
-    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
-    fail_count=0
-    data=""
-    
-    try:
-        s.connect((host,port))
-        s.send(data_to_send) 
-        data = s.recv(size)
-        s.close()
-        return "200"
-    except:
-        
-        return "404"
     
 host = ''
 listen_port = 50003
@@ -57,16 +41,14 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind((host,listen_port))
 
 #let the user know what's going on
-print ''
-print ''
-print '   chat SERVER'
-print '   running on %s' % my_name
-print '   LISTENING on port %s' % listen_port 
-print '   SENDING on port   %s' % send_port
-print '______________________________________________________'
-print''
-print''
+print '\n'*10
+print '____________________________________________'
+print '   CHAT SERVER'
+print '   RUNNING ON %s' % my_name
+print '   LISTENING LISTENING ON %s' % listen_port 
 
+print '____________________________________________'
+print '\n'*10
 #start listening
 server.listen(backlog)
 
@@ -89,12 +71,7 @@ while running:
             client, address = server.accept()
             print
             print 'accepted connection from', address
-            if address[0] not in clients:
-                clients.append (address[0])
-                
-                print "Added client: %s" % str(address[0])
-            else:
-                print "%s is an existing client" %  str(address[0])
+            
             
             input.append(client)
 
@@ -107,29 +84,26 @@ while running:
         elif s: # A client sent something
 
             data = s.recv(size)
-            
+
+                
             if data:
-                print '%s: sent <%s>' % (s.getpeername()[0], data.strip('\n'))
-                s.send('200')
+                
+                
+                print "%s on port %s says '%s'" % (s.getpeername()[0],s.getpeername()[1], data.strip('\n'))
 
                 #Spread the message to connected clients
                 print "Messaging Clients:"
-                for client in clients:
-                    echo_client=my_name + ":" + s.getpeername()[0]+ ':'
-
-                    #Skip the seneder
-                    if s.getpeername()[0]!=client:
-                        print "     Messaging %s on %i ..." % (client ,send_port),
-                        #Try to send to the current client
-                        if send_data(client,send_port,echo_client + data)=="200":
-                            print "Success!!"
-                        else:
-                            print " FAILED."
-                    else:
-                        print "     Skipping sender %s on %i." % (client ,send_port)
-
-                print
+                for client_sock in input:
+                    
+                    if client_sock != server and client_sock!=sys.stdin:
+                        
+                        
+                        response="%s>%s:%s>%s" % (my_name,s.getpeername()[0],s.getpeername()[1],data.strip('/n'))
+                        print '%15s on port %s' % (client_sock.getpeername())
+                        client_sock.send(response)
             else:
+                print "a client has exited"
+                
                 s.close()
                 input.remove(s)
                 s.close()
