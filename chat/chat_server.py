@@ -79,7 +79,7 @@ while running:
             # handle standard input
             #junk = sys.stdin.readline()
             #running = False
-            print 'Input %s from stdin, exiting.' % junk.strip('\n')
+            #print 'Input %s from stdin, exiting.' % junk.strip('\n')
 
         elif s: # A client sent something
 
