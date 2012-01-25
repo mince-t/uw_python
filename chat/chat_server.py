@@ -77,8 +77,8 @@ while running:
 
         elif s == sys.stdin:
             # handle standard input
-            junk = sys.stdin.readline()
-            running = False
+            #junk = sys.stdin.readline()
+            #running = False
             print 'Input %s from stdin, exiting.' % junk.strip('\n')
 
         elif s: # A client sent something
