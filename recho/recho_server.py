@@ -1,16 +1,16 @@
 """
-echo server, usage:
+recho server, usage:
 
- python echo_server.py <port>
+ python recho_server.py <port>
 
-Port is optional, default: 50000
+Port is optional, default: 50002
 """
 
 import socket 
 import sys
 
 host = '' 
-port = 50011 
+port = 50002 # different default port than echo, both can run on same server
 
 if len(sys.argv) > 1:
     port = int(sys.argv[1])
@@ -27,13 +27,19 @@ s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 s.bind((host,port)) 
 
-print 'echo_server listening on port', port
+print 'recho_server listening on port', port
 s.listen(backlog) 
 
 while True: 
     client, address = s.accept()
-    data = client.recv(size) 
-    if data: 
-        client.send("mince-t:\n You said '%s'" % data) 
-    print 'from %s: %s' % (address, data)
-    client.close()
+    print 'accepted connection from ', address
+    while True:
+        data = client.recv(size) 
+        if data:
+            client.send('uw-student: %s' % data) 
+        else:  # no data, client sent empty message or closed socket
+            client.close()
+            print 'closed connection'
+            break
+
+        
