@@ -80,7 +80,7 @@ while running:
             #junk = sys.stdin.readline()
             #running = False
             #print 'Input %s from stdin, exiting.' % junk.strip('\n')
-
+            pass
         elif s: # A client sent something
 
             data = s.recv(size)
