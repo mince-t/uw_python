@@ -46,5 +46,5 @@ while True: # just keep serving page to any client that connects
     req_path=client.recv(size) # HTTP request - not too big!  Just ignore contents
     req_path=req_path[:req_path.find('\r\n')].split(' ')[1]
     
-    client.send(page % (req_path,address)) # HTTP response - same for any request
+    client.send(page % (req_path,address[0])) # HTTP response - same for any request
     client.close()
