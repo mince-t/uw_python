@@ -45,6 +45,7 @@ while True: # just keep serving page to any client that connects
     client, address = s.accept() # create client socket
     req_path=client.recv(size) # HTTP request - not too big!  Just ignore contents
     req_path=req_path[:req_path.find('\r\n')].split(' ')[1]
+    req_path=req_path[:req_path.rfind('/')+1]
     
     client.send(page % (req_path,address[0])) # HTTP response - same for any request
     client.close()
