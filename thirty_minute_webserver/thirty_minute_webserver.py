@@ -17,7 +17,7 @@
 
 import os, socket, sys,subprocess
 # Default server and port
-defaults = ['', '8084']
+defaults = ['', '8080']
 mime_types = {'.jpg' : 'image/jpg', 
             '.gif' : 'image/gif', 
             '.png' : 'image/png',
