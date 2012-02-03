@@ -134,7 +134,7 @@ def get_content(uri):
                             return (500, "     ERROR:\n   " + process_err)
                     else:
                         print"   cannot execute %s " % path
-                        redirect_page="""<html><head><meta http-equiv="REFRESH" content="10;url=http://""" + socket.gethostname() + """:8080/"></head><body><h2>You can't run thirty_minute_webserver.py from here</h2><img src='duh.jpg' /><h3>redirecting to index in 10 ...</h3></body></html>"""
+                        redirect_page="""<html><head><meta http-equiv="REFRESH" content="10;url=http://""" + socket.getfqdn() + """:8080/"></head><body><h2>You can't run thirty_minute_webserver.py from here</h2><img src='duh.jpg' /><h3>redirecting to index in 10 ...</h3></body></html>"""
                         return (200, get_mime(uri),redirect_page )
                 else:
                     print 'fetching : %s' % uri
