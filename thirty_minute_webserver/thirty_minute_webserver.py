@@ -70,8 +70,9 @@ DIRECTORY_LISTING =\
 """
 
 DIRECTORY_LINE = '<a href="%s">%s</a><br>'
-
+host_name=""
 def server_socket(host, port):
+    
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
     s.listen(1)
@@ -85,7 +86,7 @@ def get_request(stream):
     method = None
     while True:
         line = stream.readline()
-        print line
+        
         if not line.strip(): 
             break
         elif not method: 
@@ -100,34 +101,43 @@ def list_directory(uri):
 
 def get_file(path):
     f = open( path)
-    print path
+    
     try: 
         return f.read()
     finally: 
         f.close()
 
 def get_content(uri):
-    print 'fetching:', uri
+    
     try:
         path = '.' + uri
         if os.path.isfile(path):
-            is_py=False
+            
             if len(path)>3:
                 if path[-3:]=='.py':
-                    #Launch a python module in a new sub-process
-                    print '   running %s in a new subprocess' % path
-                    process = subprocess.Popen(['python', path], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    process_result=process.communicate()
-                    process_out=process_result[0]
-                    process_err=process_result[1]
-                    print process_err
-                    if not process_err:
-                        print '   process wrote %s' % process_out
-                        return (200, get_mime(uri),process_out )
-                    else:
+                    print"executing: %s" % uri
+                    if path[path.rfind('/')+1:] != 'thirty_minute_webserver.py':
                         
-                        return (500, "ERROR:\n   " + process_err)
+                        #Launch a python module in a new sub-process
+                       
+                        process = subprocess.Popen(['python', path], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        process_result=process.communicate()
+                        process_out=process_result[0]
+                        process_err=process_result[1]
+                        if process_err:
+                            print "     ERROR: \n%s\n" % process_err
+                        if not process_err:
+                            
+                            return (200, get_mime(uri),process_out )
+                        else:
+                            
+                            return (500, "     ERROR:\n   " + process_err)
+                    else:
+                        print"   cannot execute %s " % path
+                        redirect_page="""<html><head><meta http-equiv="REFRESH" content="10;url=http://""" + socket.gethostname() + """:8080/"></head><body><h2>You can't run thirty_minute_webserver.py from here</h2><img src='duh.jpg' /><h3>redirecting to index in 10 ...</h3></body></html>"""
+                        return (200, get_mime(uri),redirect_page )
                 else:
+                    print 'fetching : %s' % uri
                     return (200, get_mime(uri), get_file(path))
             else:
                 return (200, get_mime(uri), get_file(path))
@@ -142,14 +152,9 @@ def get_content(uri):
 
 def get_mime(uri):
     return mime_types.get(os.path.splitext(uri)[1], 'text/plain')
-    print mime_types.get(os.path.splitext(uri)[1], 'text/plain')
+
 def send_response(stream, content):
-    print
-    print response[content[0]]
-    print
-    print response[200]
-    
-    print 
+
     stream.write(response[content[0]] % content[1:])
 
 if __name__ == '__main__':
