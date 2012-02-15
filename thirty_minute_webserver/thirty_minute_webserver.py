@@ -85,13 +85,13 @@ def listen(s):
 def get_request(stream):
     method = None
     while True:
-        line = stream.readline()
-        
+        line = stream.read()
+        line=line.split('\r\n')
         if not line.strip(): 
             break
         elif not method: 
             method, uri, protocol = line.split()
-    return uri
+    return (uri,data)
 
 def list_directory(uri):
     entries = os.listdir('.' + uri)
@@ -165,6 +165,7 @@ if __name__ == '__main__':
     try:
         while True:
             stream = listen (server)
+            
             send_response(stream, get_content(get_request(stream)))
             stream.close()
     except KeyboardInterrupt:
