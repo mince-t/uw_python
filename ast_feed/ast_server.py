@@ -151,7 +151,7 @@ while running:
 
         elif s == sys.stdin:
             # handle standard input
-            junk = sys.stdin.readline()
-            running = False
-            print 'Input %s from stdin, exiting.' % junk.strip('\n')
+            #junk = sys.stdin.readline()
+            #running = False
+            #print 'Input %s from stdin, exiting.' % junk.strip('\n')
             pass
