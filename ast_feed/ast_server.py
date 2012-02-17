@@ -153,7 +153,7 @@ while running:
                         print "searching for %s" % query
 
                 #get all posts from the specified author
-                client.send(response_headers)
+                client.send(response_header)
                 client.send(get_ast_data(unicode(query)))
                 client.close()
             
