@@ -24,10 +24,10 @@ from pprint import pprint
     
 """
 
-response_header="""Date: Fri, 17 Feb 2012 22:55:04 GMT
-Last-Modified: Sun, 17 Oct 1999 17:01:17 GMT
-Accept-Ranges: bytes
-Content-Type: text/html
+response_header="""HTTP/1.1 200 OK
+Date: Fri, 17 Feb 2012 23:26:19 GMT
+Content-Type: text/html; charset=UTF-8
+
 """
 def get_ast_data(user_name):
 
