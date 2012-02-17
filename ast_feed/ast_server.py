@@ -28,6 +28,7 @@ response_header="""HTTP/1.1 200 OK
 Date: Fri, 17 Feb 2012 23:26:19 GMT
 Content-Type: text/html; charset=UTF-8
 
+
 """
 def get_ast_data(user_name):
 
