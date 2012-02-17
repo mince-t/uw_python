@@ -20,6 +20,14 @@ from pprint import pprint
 
 """
     Search for posts on allseattletango.com from author user_name
+
+    
+"""
+
+response_header="""Date: Fri, 17 Feb 2012 22:55:04 GMT
+Last-Modified: Sun, 17 Oct 1999 17:01:17 GMT
+Accept-Ranges: bytes
+Content-Type: text/html
 """
 def get_ast_data(user_name):
 
@@ -145,6 +153,7 @@ while running:
                         print "searching for %s" % query
 
                 #get all posts from the specified author
+                client.send(response_headers)
                 client.send(get_ast_data(unicode(query)))
                 client.close()
             
