@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>
+			{{book['title]'}}
+		</title>
+	</head>
+	<body>
+		<h3>Details for {{book['title']}}</h3>
+		Author:{{book['author']}}
+		ISBN: {{book['isbn']}}
+		Publisher: {{book['publisher']}}
+	</body>
+</html>
