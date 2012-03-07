@@ -1,0 +1,12 @@
+
+	{% if not(book_count==0) %}
+		{% if book_count !=1 }
+			{{ book_count }} books in database
+		{% else %}
+			1 record in database
+
+		{% endif %}
+
+	{% else %}
+			No records in database
+	{% endif %}

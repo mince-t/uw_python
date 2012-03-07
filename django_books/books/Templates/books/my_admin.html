@@ -1,0 +1,72 @@
+<html>
+<head>
+<style type="text/css">
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+font: 69%/1.5em verdana, arial, sans-serif;
+color: #333;
+}
+
+
+
+h1 {
+
+margin: 1em 0;
+margin-left:10px;
+font-size: 2.2em;
+
+}
+
+h3 {
+
+
+margin-left:10px;
+
+
+}
+
+
+li {
+list-style: none;
+margin: 1em 0;
+}
+
+a {
+color: #ffff;
+text-decoration: none;
+margin-left:10px;
+
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+li { /* the rules that do the indenting */
+padding-left: 1em;
+padding-right: 1em;
+text-indent: -1em;
+}
+</style>
+
+</head>
+<body>
+	<h1>Books Admin</h1>
+	{% if book_count == 0 %}
+		<h3>The book database is empty<h3>
+		<a href='/books/my_admin/load_BooksDB/'>IMPORT BOOKS</a>
+	{% else  %}
+		{% if book_count == 1 %}
+			<h3>One book in book databse<h3>
+			<a href='/books/my_admin/purge/'>IMPORT BOOKS</a>
+
+		{% else %}
+			<h3>{{ book_count}} books in book databse</h3>
+			<a href='/books/my_admin/purge/'>PURGE BOOKS</a>
+		{% endif %}
+	{% endif %}
+</body>

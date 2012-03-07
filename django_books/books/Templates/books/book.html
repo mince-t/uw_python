@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>
+
+Details for '{{ book['title'] }}'
+
+</title>
+<style type="text/css">
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+font: 69%/1.5em verdana, arial, sans-serif;
+color: #333;
+padding-left:20px;
+}
+
+
+
+h1 {
+margin: 1em 0;
+font-size: 2.2em;
+line-height: 120%;
+}
+</style>
+</head>
+<body>
+<h1>{{ book.title }}</h1>
+<div style="width:200px;height:400px;position:releative;float:left;margin-right:10px">
+
+</div>
+<div stylel="display: inline">
+Author:{{ book.author }}<br>
+ISBN: {{ book.isbn }}<br>
+Publisher: {{ book.publisher }}<br>
+</div>
+</body>
+</html>
