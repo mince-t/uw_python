@@ -103,7 +103,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'django_books.urls'
 
 
-TEMPLATE_DIRS = ("/home/tony/uw_python/django_books/books/Templates/books",
+TEMPLATE_DIRS = ("/home/class/uw_python/django_books/books/Templates/books",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
