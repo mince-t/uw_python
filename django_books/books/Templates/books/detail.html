@@ -12,23 +12,31 @@ padding: 0;
 }
 
 body {
-font: 80%/1.5em verdana, arial, sans-serif;
+font: 80%/1.5em  arial, sans-serif;
+font-weight:600;
+letter-spacing:.7px;
 color: #333;
 padding-left:20px;
+background-color: #daecee;
 }
 
 
 
 h1 {
-margin: 1em 0;
-font-size: 2.2em;
+margin: 1em;
+font-size: 2.0em;
 line-height: 120%;
 }
 </style>
 </head>
 <body>
+<div style="width:100%;height:100px;">
 <h1>{{ book.title }}</h1>
-
+</div>
+{% load static %}
+<div style="width:200px;height:400px;position:releative;float:left;margin-right: 2em;">
+	<img src="{{ book.get_cover_file }}" style="max-width:100%; max-height:100%;margin-left:1em;"/>
+</div>
 
 Author:{{ book.author }}<br>
 ISBN: {{ book.isbn }}<br>

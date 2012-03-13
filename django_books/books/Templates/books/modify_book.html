@@ -1,0 +1,50 @@
+<html>
+<head>
+<style>
+	td.input_label
+	{
+		text-align:right;
+	
+	}
+	input.form_submits
+	{
+		postion: absolute;
+		width:100%;
+
+	}
+
+</style>
+</head>
+<body>
+	<h1>{{ modify_type }} book</h1>
+	
+	<form action="/books/my_admin/modify_book/{{ modify_type }}/{{ current_book.book_id }}/" method="POST">
+		{% csrf_token %}
+		<table>
+			{% if modify_type == "add" %}
+				<tr>
+					<td class="input_label">book id</td><td><input type="text" size="60" name="book_id" value="" /></td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td class="input_label">title</td><td><input type="text" size="60" name="title" value="{{ current_book.title }}" /></td>
+			</tr>
+			<tr>
+				<td class="input_label">author</td><td><input type="text" name="author" value="{{ current_book.author }}"/></td>
+			</tr>
+			<tr>			
+				<td class="input_label">isbn</td><td><input type="text" name="isbn" value="{{ current_book.isbn }}"/><br></td>
+			</tr>
+			<tr>			
+				<td class="input_label">publisher</td><td><input type="text" name="publisher" value="{{ current_book.publisher }}"/><br></td>
+			</tr>
+			<tr>
+				<td class="input_label"><input type="submit" value="Submit" class="form_submit"/></td>
+			</tr>
+		</table>
+
+	</form>
+
+
+</body>
+</html>

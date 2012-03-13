@@ -1,72 +1,73 @@
+{% load static %}
 <html>
 <head>
-<style type="text/css">
-* {
-margin: 0;
-padding: 0;
-}
 
-body {
-font: 69%/1.5em verdana, arial, sans-serif;
-color: #333;
-}
-
-
-
-h1 {
-
-margin: 1em 0;
-margin-left:10px;
-font-size: 2.2em;
-
-}
-
-h3 {
+<link rel="stylesheet" type="text/css" media="screen" href="{% get_static_prefix %}css/default.css" />
+<style>
+div.footer 
+{
+     
+     font-size: 14px;
+     font-family: Verdana, Geneva, Arial, sans-serif;
+     font-weight:bold;
+     text-align: left;
+     position: absolute;
+     bottom: 0px;
+     left: 0px;
+	
+     
+     height:2em;
+     }
 
 
-margin-left:10px;
 
-
-}
-
-
-li {
-list-style: none;
-margin: 1em 0;
-}
-
-a {
-color: #ffff;
-text-decoration: none;
-margin-left:10px;
-
-}
-
-a:hover {
-text-decoration: underline;
-}
-
-li { /* the rules that do the indenting */
-padding-left: 1em;
-padding-right: 1em;
-text-indent: -1em;
-}
 </style>
 
 </head>
-<body>
+<body >
 	<h1>Books Admin</h1>
-	{% if book_count == 0 %}
-		<h3>The book database is empty<h3>
-		<a href='/books/my_admin/load_BooksDB/'>IMPORT BOOKS</a>
+	
+	{% if all_books.count == 0 %}
+		<h3>The book database is empty:<h3>
+		
 	{% else  %}
-		{% if book_count == 1 %}
-			<h3>One book in book databse<h3>
-			<a href='/books/my_admin/purge/'>IMPORT BOOKS</a>
+		{% if all_books.count == 1 %} {{ books.count }}
+			<h3>One book in book database:<h3>
+			
 
 		{% else %}
-			<h3>{{ book_count}} books in book databse</h3>
-			<a href='/books/my_admin/purge/'>PURGE BOOKS</a>
+			<h3>{{ all_books.count}} books in book database:</h3>
+			
 		{% endif %}
 	{% endif %}
+	<div style="display:block;">
+
+		
+		<form action='/books/my_admin/' method="post">{% csrf_token %}
+			<select size=10 style="width:300px;margin-left:1em;float:left;" name ="book">
+			{% for book in all_books %}
+				{% if forloop.counter0 == 0 %}
+					<option value='{{ book.book_id }}' SELECTED>{{ book.title }}</option>
+				{% else %}
+					<option value='{{ book.book_id }}' >{{ book.title }}</option>
+				{% endif %}
+			{% endfor %}
+			</select>
+			<input type = "submit" name="operation" value="new book" style="width:95;"/><br>
+			{% if all_books.count == 0 %}
+			<input type = "submit" name="operation" value="import books"style="width:95;" />
+			{% else  %}
+			<input type = "submit" name="operation" value="edit book" style="width:95;"/><br>
+			<input type = "submit" name="operation" value="delete book" style="width:95;"/><br>
+			<input type = "submit" name="operation" value="purge books"style="width:95;" />
+			
+			{% endif %}
+		</form>		
+		
+	</div>
+	
+	<div class="footer" id="goo">
+		
+			<a href='/books/my_admin/logout/' >log out admin</a>
+			</div>
 </body>

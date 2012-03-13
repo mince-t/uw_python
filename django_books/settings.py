@@ -1,6 +1,7 @@
 # Django settings for django_books project.
 
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -12,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/class/uw_python/django_books/books.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/tony/uw_python/django_books/books.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -56,7 +57,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/home/tony/uw_python/django_books/books/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -103,7 +104,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'django_books.urls'
 
 
-TEMPLATE_DIRS = ("/home/class/uw_python/django_books/books/Templates/books",
+TEMPLATE_DIRS = ("/home/tony/uw_python/django_books/books/Templates/books",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -128,6 +129,9 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+LOGIN_URL='books/myadmin/login/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

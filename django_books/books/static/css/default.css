@@ -1,0 +1,59 @@
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+font: 69%/1.5em verdana, arial, sans-serif;
+color: #333;
+}
+
+
+
+h1 {
+margin: .5em ;
+font-size: 2.0em;
+line-height: 120%;
+}
+h1,h2,h3,h4,h5,h6
+{
+	margin-left:.53em;
+
+
+}
+li {
+list-style: none;
+margin: 1em 0;
+}
+
+a {
+color: #ffff;
+text-decoration: none;
+margin-left:10px;
+
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+li { /* the rules that do the indenting */
+padding-left: 1em;
+padding-right: 1em;
+text-indent: -1em;
+}
+
+div.footer 
+{
+     
+
+
+     
+     text-align: left;
+     position: absolute;
+     bottom: 0px;
+     left: 0px;
+     width: 100%;
+     height: 18px;
+	
+     }

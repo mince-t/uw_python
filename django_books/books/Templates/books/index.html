@@ -1,54 +1,10 @@
-
-
-
+{% load static %}
 <html>
 <head>
 <title>
 Book Index
 </title>
-<style type="text/css">
-* {
-margin: 0;
-padding: 0;
-}
-
-body {
-font: 69%/1.5em verdana, arial, sans-serif;
-color: #333;
-}
-
-
-
-h1 {
-
-margin: 1em 0;
-margin-left:10px;
-font-size: 2.2em;
-
-}
-
-li {
-list-style: none;
-margin: 1em 0;
-}
-
-a {
-color: #ffff;
-text-decoration: none;
-margin-left:10px;
-
-}
-
-a:hover {
-text-decoration: underline;
-}
-
-li { /* the rules that do the indenting */
-padding-left: 1em;
-padding-right: 1em;
-text-indent: -1em;
-}
-</style>
+<link rel="stylesheet" type="text/css" media="screen" href="{% get_static_prefix %}css/default.css" />
 
 
 
@@ -57,14 +13,20 @@ text-indent: -1em;
 
 
 <div style='width:20%;height: 100%;float:left;border-right:solid black 1px;'>
-<h1>Index of Books</h1>
-<ul>
-{% for book in all_books %}
-	<li><a href='/books/{{ book.book_id }}' target = 'book_frame' style='line-height:1.5;'>»{{ book.title }}</a></li>
-{% endfor %}
-</ul>
-</div>
-<iframe src='/books/my_admin/' style='float:left;height:99%;width:79%;border-width:0px' name='book_frame' />
+	<h1>Index of Books</h1>
+	<ul>
+	{% for book in all_books %}
+		<li><a href='/books/{{ book.book_id }}' target = 'book_frame' style='line-height:1.5;'>»{{ book.title }}</a></li>
+	{% endfor %}
+	</ul>
+	<div class="footer" id="goo">
+
+			<a href='/books/my_admin/' target='book_frame'>book admin</a>
+
+	
+	</div>
+	</div>
+	<iframe src='/books/my_admin/' style='float:left;height:99%;width:79%;border-width:0px' name='book_frame' ></>
 
 </div>
 
